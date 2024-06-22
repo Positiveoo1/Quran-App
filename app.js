@@ -179,7 +179,7 @@ window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
     const scrollToTopBtn = document.getElementById("scroll1");
 
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
         scrollToTopBtn.style.display = "block";
     } else {
         scrollToTopBtn.style.display = "none";
