@@ -42,7 +42,9 @@ header {
     text-align: center;
     padding: 1em 0;
 }
-
+#quran-content {
+    height: auto;
+}
 #font-size-controls {
     margin-top: 10px;
     text-align: center;
@@ -145,7 +147,48 @@ footer {
     width: 100%;
     bottom: 0;
 }
+.btns {
+    width: 100%;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 55px; 
+  }
+  
+  .btns button {
+    padding: 7px 15px;
+    background-color: #4CAF50;
+    color: #ffff;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 7px;
+    transition: .4s ease-in;
+  }
+  
+  .btns button:hover {
+    background-color: transparent;
+    color: #111;
+    border: 1px solid #4CAF50;
+  }
+  
+  .btns button {
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-250%); 
+    width: auto; 
+  }
+  
+  .btns button:first-child { /* Target the first button (previous) */
+    left: -10px; /* Place it at the left edge */
+  }
+  
+  .btns button:last-child { /* Target the last button (next) */
+    right: 25px; /* Place it at the right edge */
+  }
+  
 /* Media Queries */
 
 /* For tablets */
@@ -172,6 +215,9 @@ footer {
         padding: 8px 16px;
         bottom: 40px;
     }
+    .btns button {
+        padding: 7px 12px; /* Adjust padding for tablets */
+      }
 }
 
 /* For phones */
@@ -205,4 +251,18 @@ footer {
     footer {
         padding: 8px;
     }
+    .btns {
+        bottom: 60px; /* Adjust as needed for smaller screens */
+      }
+    
+      .btns button {
+        padding: 5px 10px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens (optional) */
+      }
+      .btns button:first-child {
+        left: -70px;
+      }
+      .btns button:last-child {
+        right: 90px;
+      }
 }

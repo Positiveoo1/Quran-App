@@ -138,6 +138,36 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchSurah(surahNumber);
     }
 
+
+let currentSurahIndex = 0;
+const totalSurahs = surahs.length;
+
+const previousButton = document.getElementById('previous');
+previousButton.addEventListener('click', () => {
+  if (currentSurahIndex > 0) {
+    currentSurahIndex--;
+    fetchSurah(surahs[currentSurahIndex].number);
+  } else {
+    alert("You are already on the first surah.");
+  }
+});
+
+const nextButton = document.getElementById('next');
+nextButton.addEventListener('click', () => {
+  if (currentSurahIndex < totalSurahs) {
+    currentSurahIndex++;
+    fetchSurah(surahs[currentSurahIndex].number);
+  } else {
+    alert("You are already on the last surah.");
+  }
+});
+window.onload = () => {
+    const storedIndex = localStorage.getItem('currentSurahIndex');
+    if (storedIndex !== null && !isNaN(storedIndex)) {
+        currentSurahIndex = parseInt(storedIndex);
+    }
+    fetchSurah(surahs[currentSurahIndex].number);
+};
     async function fetchSurah(surahNumber) {
         document.getElementById('loader').style.display = 'block';
         try {
@@ -175,10 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const decrease = document.getElementById('decrease-font-btn');
             
                 increase.addEventListener('click', () => {
-                    txtx.style.fontSize = `${parseInt(txtx.style.fontSize) + 1}px`;
+                    p.style.fontSize = `${parseInt(p.style.fontSize) + 1}px`;
                 });
                 decrease.addEventListener('click', () => {
-                    txtx.style.fontSize = `${parseInt(txtx.style.fontSize) - 1}px`;
+                    p.style.fontSize = `${parseInt(p.style.fontSize) - 1}px`;
                 });
         });
  
@@ -186,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
     
+
 
 const round = document.getElementsByClassName('round')[0];
 
