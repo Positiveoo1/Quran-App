@@ -13,12 +13,19 @@
             <button id="increase-font-btn">Increase Font Size</button>
             <button id="decrease-font-btn">Decrease Font Size</button>
         </div>
+            
+    <div class="on">
+        <div class="round" onclick="toggled()"></div>
+    </div>
     </header>
     <nav>
         <ul id="surah-list">
         </ul>
     </nav>
     <main>
+        <div class="loader" id="loader">
+            <img src="./imgss1-removebg-preview.png" alt="loading....">
+        </div>
         <div id="quran-content">
         </div>
         <button id="scroll1" onclick="scrollToTop()">Back to Top</button>

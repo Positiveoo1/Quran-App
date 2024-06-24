@@ -10,6 +10,30 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.on {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #D3D3D3;
+    border-radius: 30px;
+
+}
+
+.round {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-top: 1px;
+    cursor: pointer;
+    margin-left: 2px;
+}
+.dark {
+    background-color: #000;
+    color: #8d8d8d;
 }
 
 header {
@@ -72,7 +96,28 @@ main {
     padding: 20px;
     overflow: scroll;
 }
-
+.loader {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .loader img {
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 #scroll1 {
     display: none; /* Hide by default */
     position: fixed;

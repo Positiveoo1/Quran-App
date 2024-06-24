@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchSurah(surahNumber) {
+        document.getElementById('loader').style.display = 'block';
         try {
             const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
             const data = await response.json();
@@ -146,17 +147,33 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching Surah:', error);
             quranContent.textContent = 'An error occurred while fetching the Surah content.';
-        }
+        }finally {
+            document.getElementById('loader').style.display = 'none'; 
+        document.getElementsByTagName('body')[0].style.backgroundColor = rgba(0,0,0,.5);
+
+          }
     }
 
     function displaySurah(surah) {
         quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
         surah.ayahs.forEach(ayah => {
-            const txtx = document.createElement('h1');
-            txtx.textContent = ` ۝ ${ayah.text}`;
-            txtx.style.textAlign = "center";
-            txtx.style.fontSize = "40px";
-            quranContent.appendChild(txtx);
+            // const txtx = document.createElement('h1');
+            // const firstLetter = ayah.text[0];
+            // const remainingText = ayah.text.slice(1); // Remove the first letter
+            // txtx.innerHTML = `۝ <span style="color: red;">${firstLetter}</span>${remainingText}`;
+            // txtx.style.textAlign = "center";
+            // txtx.style.fontSize = "40px";
+            // quranContent.appendChild(txtx);
+            const p = document.createElement('p');
+            if (ayah.text.includes('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ')) {
+                p.innerHTML = ayah.text.replace('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ', '<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>');
+            } else {
+                p.textContent = ayah.text;
+            }
+            p.style.textAlign = "center";
+            p.style.fontSize = "40px";
+            quranContent.appendChild(p);
+     
             const increase = document.getElementById('increase-font-btn');
             const decrease = document.getElementById('decrease-font-btn');
             
@@ -169,9 +186,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
  
     }
-    
 
 });
+    
+
+const round = document.getElementsByClassName('round')[0];
+
+if (round) {
+  round.addEventListener('click', (event) => {
+    event.stopPropagation(); 
+
+    document.body.classList.toggle('dark');
+
+    if (document.body.classList.contains('dark')) {
+      round.style.transform = 'translateX(20px)';
+      round.style.transition = 'transform 0.5s ease-in-out';
+      round.style.backgroundColor = 'black';
+    } else {
+      round.style.transform = 'translateX(0px)';
+      round.style.backgroundColor = 'white';
+    }
+  });
+} else {
+  console.error('Element with class "round" not found');
+}
+
 
 
 window.onscroll = function() {scrollFunction()};
@@ -188,3 +227,5 @@ function scrollFunction() {
 function scrollToTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+
