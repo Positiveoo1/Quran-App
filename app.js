@@ -157,9 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function displaySurah(surah) {
         quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
         surah.ayahs.forEach(ayah => {
+      
             const p = document.createElement('p');
             if (ayah.text.includes('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ')) {
-                p.innerHTML = ayah.text.replace(' بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ ', '<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>');
+                p.innerHTML = ayah.text.replace('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ', '<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>');
             } else {
                 const sentences = ayah.text.split('.');
                 for (let sentence of sentences) {
