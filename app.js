@@ -157,18 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function displaySurah(surah) {
         quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
         surah.ayahs.forEach(ayah => {
-            // const txtx = document.createElement('h1');
-            // const firstLetter = ayah.text[0];
-            // const remainingText = ayah.text.slice(1); // Remove the first letter
-            // txtx.innerHTML = `۝ <span style="color: red;">${firstLetter}</span>${remainingText}`;
-            // txtx.style.textAlign = "center";
-            // txtx.style.fontSize = "40px";
-            // quranContent.appendChild(txtx);
             const p = document.createElement('p');
             if (ayah.text.includes('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ')) {
-                p.innerHTML = ayah.text.replace('بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ', '<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>');
+                p.innerHTML = ayah.text.replace(' بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ ', '<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>');
             } else {
-                p.textContent = ayah.text;
+                const sentences = ayah.text.split('.');
+                for (let sentence of sentences) {
+                  p.textContent += sentence + '۝';
+                }
             }
             p.style.textAlign = "center";
             p.style.fontSize = "40px";
