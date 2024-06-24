@@ -4,3 +4,5 @@ https://t.me/Positive_oo1
 https://instagram.com/positive_oo1
 
 for the web link you can find from here and share with other brothers and sisters. Thanks for you all.
+
+https://quran-v1.netlify.app/
