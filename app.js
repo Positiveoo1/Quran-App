@@ -198,7 +198,8 @@ window.onload = () => {
                 }
             }
             p.style.textAlign = "center";
-            p.style.fontSize = "40px";
+            p.style.fontSize = "25px";
+            p.classList.add("under");
             quranContent.appendChild(p);
      
             const increase = document.getElementById('increase-font-btn');

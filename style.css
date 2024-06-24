@@ -181,13 +181,27 @@ footer {
     width: auto; 
   }
   
-  .btns button:first-child { /* Target the first button (previous) */
-    left: -10px; /* Place it at the left edge */
+  .btns button:first-child { 
+    left: -10px; 
   }
   
-  .btns button:last-child { /* Target the last button (next) */
-    right: 25px; /* Place it at the right edge */
+  .btns button:last-child { 
+    right: 25px; 
   }
+  .under {
+    position: relative;
+    padding: 15px;
+}
+
+.under::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px; 
+    height: 2px; 
+    background-color: currentColor; 
+}
   
 /* Media Queries */
 
