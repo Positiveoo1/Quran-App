@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const surahList = document.getElementById('surah-list');
     const quranContent = document.getElementById('quran-content');
-
     surahs.forEach(surah => {
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -174,15 +173,72 @@ window.onload = () => {
             const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`);
             const data = await response.json();
             displaySurah(data.data);
+            fetchSurahAudio(surahNumber);
         } catch (error) {
             console.error('Error fetching Surah:', error);
             quranContent.textContent = 'An error occurred while fetching the Surah content.';
         }finally {
             document.getElementById('loader').style.display = 'none'; 
-        document.getElementsByTagName('body')[0].style.backgroundColor = rgba(0,0,0,.5);
-
           }
     }
+
+
+
+let audioPlayer = new Audio();
+let ayahs = [];
+let currentIndex = 0;
+let isPlaying = false;
+
+document.getElementById('play').addEventListener('click', playAudio);
+document.getElementById('pause').addEventListener('click', pauseAudio);
+document.getElementById('stop').addEventListener('click', stopAudio);
+
+async function fetchSurahAudio(surahNumber) {
+    try {
+        const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`);
+        const data = await res.json();
+        ayahs = data.data.ayahs;
+        currentIndex = 0;
+    } catch (error) {
+        console.error('Error fetching Surah Audio:', error);
+    }
+}
+
+function playAudio() {
+    if (!isPlaying) {
+        playAyah(currentIndex);
+        isPlaying = true;
+    } else if (audioPlayer.paused) {
+        audioPlayer.play();
+    }
+}
+
+function pauseAudio() {
+    if (isPlaying && !audioPlayer.paused) {
+        audioPlayer.pause();
+    }
+}
+
+function stopAudio() {
+    if (isPlaying) {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+        isPlaying = false;
+    }
+}
+
+function playAyah(index) {
+    if (index < ayahs.length) {
+        audioPlayer.src = ayahs[index].audio;
+        audioPlayer.play();
+        audioPlayer.onended = () => {
+            currentIndex++;
+            playAyah(currentIndex);
+        };
+    } else {
+        isPlaying = false;  
+    }
+}
 
     function displaySurah(surah) {
         quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
@@ -201,7 +257,8 @@ window.onload = () => {
             p.style.fontSize = "25px";
             p.classList.add("under");
             quranContent.appendChild(p);
-     
+        
+                  
             const increase = document.getElementById('increase-font-btn');
             const decrease = document.getElementById('decrease-font-btn');
             
