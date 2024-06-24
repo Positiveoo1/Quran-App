@@ -4,12 +4,12 @@ Assalamu Alaikum, dear my brothers and sisters. I hope this web will be helpful 
 https://t.me/Positive_oo1
 https://instagram.com/positive_oo1
 
---dark mode added;
---media fixed;
---new features added;
---to listen quran mishari al afasy's audio is being added;
---next and prev buttons added;
---bugs fixed;
+--dark mode added
+--media fixed
+--new features added
+--to listen quran mishari al afasy's audio is being added
+--next and prev buttons added
+--bugs fixed
 
 for the web link you can find from here and share with other brothers and sisters. Thanks for you all.
 
