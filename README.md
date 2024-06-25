@@ -1,4 +1,5 @@
-![image](https://github.com/Positiveoo1/Quran-App/assets/106428934/bf0f6795-ee6b-41da-98c8-295fe063f944)
+![image](https://github.com/Positiveoo1/Quran-App/assets/106428934/9824bb41-499a-44a3-a3f0-464df116fdc7)
+
 
 Assalamu Alaikum, dear my brothers and sisters. I hope this web will be helpful for me and for you inshaa Allah. I am working on this project within 2 days i will try tpo update every day and add more and better fueatures to make comfortabale and interesting. If you have any questions or offers or complaints please directly write to me on telegram or instagram
 https://t.me/Positive_oo1
