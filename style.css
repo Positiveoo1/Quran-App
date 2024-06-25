@@ -230,10 +230,18 @@ footer {
     margin-top: 10px;
     transition: .4s ease-in;
 }
+.underline {
+    text-decoration: underline;
+}
   
 #play:hover,#pause:hover,#stop:hover {
     background-color: #45a049;
 }
+.highlighted {
+    background-color: yellow;
+    color: black; 
+}
+
 /* Media Queries */
 
 /* For tablets */
