@@ -6,46 +6,48 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./imgss1-removebg-preview.png" type="image/x-icon">
     <title>Quran app</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Quran Reading App</h1>
-        <div id="font-size-controls">
-            <button id="increase-font-btn">Increase Font Size</button>
-            <button id="decrease-font-btn">Decrease Font Size</button>
+        <h1>Quran (Mushaf)</h1>
+    <button id="open-sidebar" class="open-btn"><i class="fas fa-bars"></i></button>
+
+        <div class="on">
+            <div class="round"></div>
         </div>
-        
-    <button id="play">Play</button>
-    <button id="pause">Pause</button>
-    <button id="stop">Stop</button>
-            
-    <div class="on">
-        <div class="round" onclick="toggled()"></div>
-    </div>
     </header>
-    <nav>
-        <ul id="surah-list">
-        </ul>
+
+    <nav id="sidebar" class="sidebar">
+        <button id="close-sidebar" class="close-btn">&times;</button>
+        <ul id="surah-list"></ul>
+
     </nav>
+
+
     <main>
         <div class="loader" id="loader">
             <img src="./imgss1-removebg-preview.png" alt="loading....">
         </div>
-        <div id="quran-content">
-
-        </div>
-        <div class="btns">
-            <button id="previous">&laquo;</button>
-            <button id="next">&raquo;</button>
-
-        </div>
-
-        <button id="scroll1" onclick="scrollToTop()">&mapstoup;</button>
+        <div id="quran-content"></div>
 
     </main>
+    <button id="hidee">&rarr;</button>
+    
+    <div id="font-size-controls" class="fixed-buttons">
+
+        <button id="increase-font-btn" title="Increase Font"><i class="fas fa-search-plus"></i></button>
+        <button id="decrease-font-btn" title="Decrease Font"><i class="fas fa-search-minus"></i></button>
+        <button id="play" title="Play"><i class="fas fa-play"></i></button>
+        <button id="pause" title="Pause"><i class="fas fa-pause"></i></button>
+        <button id="stop" title="Stop"><i class="fas fa-stop"></i></button>
+        <button id="previous" title="Previous"><i class="fas fa-arrow-left"></i></button>
+        <button id="next" title="Next"><i class="fas fa-arrow-right"></i></button>
+    </div>
+    <button id="scroll1" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
 
 
- 
     <footer>
         <p>© 2024 Quran Reading App</p>
     </footer>
