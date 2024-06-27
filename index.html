@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="./imgss1-removebg-preview.png" type="image/x-icon">
-    <title>Quran app</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="./imgss1-removebg-preview.png"
+      type="image/x-icon"
+    />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  />
+    <title>Quran app </title>
+  
+  </head>
+  <body>
     <header>
-        <h1>Quran (Mushaf)</h1>
-    <button id="open-sidebar" class="open-btn"><i class="fas fa-bars"></i></button>
-
-        <div class="on">
-            <div class="round"></div>
-        </div>
+      <h1 id="refresh">Quran (Mushaf) </h1>
+        <i class="fas fa-bars"></i>
+      <div class="on">
+        <div id="round11"></div>
+      </div>
     </header>
 
     <nav id="sidebar" class="sidebar">
-        <button id="close-sidebar" class="close-btn">&times;</button>
-        <ul id="surah-list"></ul>
-
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search Surah...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    
+      <ul id="surah-list"></ul>
     </nav>
 
-
     <main>
-        <div class="loader" id="loader">
-            <img src="./imgss1-removebg-preview.png" alt="loading....">
-        </div>
-        <div id="quran-content"></div>
-
+      <div class="loader" id="loader">
+        <img src="./imgss1-removebg-preview.png" alt="loading...." />
+      </div>
+      <div id="quran-content"></div>
     </main>
-    <button id="hidee">&rarr;</button>
-    
-    <div id="font-size-controls" class="fixed-buttons">
 
-        <button id="increase-font-btn" title="Increase Font"><i class="fas fa-search-plus"></i></button>
-        <button id="decrease-font-btn" title="Decrease Font"><i class="fas fa-search-minus"></i></button>
-        <button id="play" title="Play"><i class="fas fa-play"></i></button>
-        <button id="pause" title="Pause"><i class="fas fa-pause"></i></button>
-        <button id="stop" title="Stop"><i class="fas fa-stop"></i></button>
-        <button id="previous" title="Previous"><i class="fas fa-arrow-left"></i></button>
-        <button id="next" title="Next"><i class="fas fa-arrow-right"></i></button>
-    </div>
-    <button id="scroll1" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
-
+    <button id="scroll1" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </button>
 
     <footer>
-        <p>© 2024 Quran Reading App</p>
+        <button id="previous" title="Previous">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+      <button id="play" title="Play"><i class="fas fa-play"></i></button>
+      <button id="stop" title="Stop"><i class="fas fa-stop"></i></button>
+
+      <button id="increase-font-btn" title="Increase Font">
+        <i class="fas fa-search-plus"></i>
+      </button>
+      <button id="decrease-font-btn" title="Decrease Font">
+        <i class="fas fa-search-minus"></i>
+      </button>
+      <button id="next" title="Next"><i class="fas fa-arrow-right"></i></button>
+
     </footer>
     <script src="./app.js"></script>
-</body>
+  </body>
 </html>

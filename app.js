@@ -116,23 +116,38 @@ document.addEventListener("DOMContentLoaded", () => {
       { number: 114, name: "An-Nas" },
     ];
   
-    const sidebar = document.getElementById("sidebar");
-    const openSidebarBtn = document.getElementById("open-sidebar");
-    const surahList = document.getElementById("surah-list");
+    const surahList = document.getElementById("surah-list");  // Presumably elements for your Quran app
     const quranContent = document.getElementById("quran-content");
+    const searchInput = document.getElementById("search-input");
+    const sidebar = document.getElementById("sidebar");
 
-  
+    const openSidebarBtn = document.querySelector(".fa-bars");
+    
     let isSidebarOpen = false;
-
-    openSidebarBtn.addEventListener("click", () => {
+    
+    openSidebarBtn.addEventListener("click", toggleSidebar);
+    
+    document.addEventListener("click", handleClickOutside);
+    
+    function toggleSidebar() {
       isSidebarOpen = !isSidebarOpen;
     
       sidebar.style.width = isSidebarOpen ? "250px" : "0px";
       quranContent.style.filter = isSidebarOpen ? 'blur(2px)' : 'none';
-    });
-    
+    }
+
+
+
+
+
+function handleClickOutside(event) {
+  if (isSidebarOpen && !sidebar.contains(event.target) && event.target !== openSidebarBtn) {
+    toggleSidebar();
+  }
+}
 
   
+
     surahs.forEach((surah) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
@@ -148,6 +163,34 @@ document.addEventListener("DOMContentLoaded", () => {
       surahList.appendChild(li);
     });
   
+    function displaySurahs(filteredSurahs) {
+        surahList.innerHTML = ""; 
+        filteredSurahs.forEach((surah) => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = surah.name;
+          a.dataset.surah = surah.number;
+          a.addEventListener("click", (event) => {
+            event.preventDefault();
+            loadSurah(surah.number);
+            sidebar.style.width = "0";  
+          });
+          li.appendChild(a);
+          surahList.appendChild(li);
+        });
+      }
+    
+      displaySurahs(surahs);
+    
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase();
+        const filteredSurahs = surahs.filter((surah) =>
+          surah.name.toLowerCase().includes(query)
+        );
+        displaySurahs(filteredSurahs);
+      });
+
     function loadSurah(surahNumber) {
       fetchSurah(surahNumber);
     }
@@ -220,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
             quranContent.appendChild(bismillahParagraph);
             ayahText = parts.length > 1 ? parts[1] : "";
           }
+        
     
           if (ayahText.trim() !== "") {
             const p = document.createElement("p");
@@ -243,23 +287,34 @@ document.addEventListener("DOMContentLoaded", () => {
               p.style.fontSize = `${parseInt(p.style.fontSize) - 2}px`;
             });
           }
+          
         });
+
+      
+
       }
   
-      const hidee = document.getElementById("hidee");
-      const fontSize = document.getElementById("font-size-controls");
+      const round = document.getElementById("round11");
       
-      function toggleFontSize() {
-        if (fontSize.style.transform === 'translateX(150px)') {
-          fontSize.style.transform = 'translateX(0px)';
-          hidee.innerHTML = '&rarr;';
-        } else {
-          fontSize.style.transform = 'translateX(150px)';
-          hidee.innerHTML = '&larr;';
-        }
+     
+      if (round) {
+        round.addEventListener("click", (event) => {
+          event.stopPropagation();
+    
+          document.body.classList.toggle("dark");
+    
+          if (document.body.classList.contains("dark")) {
+            round.style.transform = "translateX(20px)";
+            round.style.transition = "transform 0.5s ease-in-out";
+            round.style.backgroundColor = "#777";
+          } else {
+            round.style.transform = "translateX(0px)";
+            round.style.backgroundColor = "white";
+          }
+        });
+      } else {
+        console.error('Element with class "round" not found');
       }
-      
-      hidee.addEventListener('click', toggleFontSize);
       
     
   function removeBasmalah(ayahText) {
@@ -277,15 +332,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
+
     let audioPlayer = new Audio();
     let ayahs = [];
     let currentIndex = 0;
     let isPlaying = false;
   
-    document.getElementById("play").addEventListener("click", playAudio);
-    document.getElementById("pause").addEventListener("click", pauseAudio);
     document.getElementById("stop").addEventListener("click", stopAudio);
-  
+    document.getElementById("play").addEventListener("click", togglePlay);
     async function fetchSurahAudio(surahNumber) {
       try {
         const res = await fetch(
@@ -303,17 +357,32 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isPlaying) {
         playAyah(currentIndex);
         isPlaying = true;
+        updatePlayIcon()
       } else if (audioPlayer.paused) {
         audioPlayer.play();
+        updatePlayIcon()
       }
     }
   
     function pauseAudio() {
       if (isPlaying && !audioPlayer.paused) {
         audioPlayer.pause();
+        updatePlayIcon();
       }
     }
-  
+    function togglePlay() {
+        const playButton = document.getElementById("play");
+      
+        if (isPlaying) {
+          playButton.innerHTML = '<i class="fas fa-play"></i>'; 
+          pauseAudio();
+        } else {
+          playButton.innerHTML = '<i class="fas fa-pause"></i>'; 
+          playAyah(currentIndex);
+        }
+        isPlaying = !isPlaying;
+      }
+      
     function playAyah(index) {
       if (index < ayahs.length) {
         audioPlayer.src = ayahs[index].audio;
@@ -341,6 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
         audioPlayer.pause();
         audioPlayer.currentTime = 0;
         isPlaying = false;
+        updatePlayIcon();
   
         const ayahElements = quranContent.getElementsByTagName("p");
         for (let i = 0; i < ayahElements.length; i++) {
@@ -348,9 +418,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-  
+    
 
-  
+   function updatePlayIcon() {
+  const playButton = document.getElementById("play");
+  playButton.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+}
     
   });
   
@@ -374,3 +447,4 @@ document.addEventListener("DOMContentLoaded", () => {
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+  
