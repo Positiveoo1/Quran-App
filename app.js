@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { number: 114, name: "An-Nas" },
     ];
   
-    const surahList = document.getElementById("surah-list");  // Presumably elements for your Quran app
+    const surahList = document.getElementById("surah-list");  
     const quranContent = document.getElementById("quran-content");
     const searchInput = document.getElementById("search-input");
     const sidebar = document.getElementById("sidebar");
@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
       sidebar.style.width = isSidebarOpen ? "250px" : "0px";
       quranContent.style.filter = isSidebarOpen ? 'blur(2px)' : 'none';
+      this.classList.remove('sidebar')
     }
 
 
@@ -264,13 +265,26 @@ function handleClickOutside(event) {
             ayahText = parts.length > 1 ? parts[1] : "";
           }
         
+          function convertToArabicNumber(number) {
+    const arabicNumerals = "٠١٢٣٤٥٦٧٨٩";
+    return String(number)
+      .split("")
+      .map((digit) => arabicNumerals[digit])
+      .join("");
+  }
     
           if (ayahText.trim() !== "") {
             const p = document.createElement("p");
             const sentences = ayahText.split(".");
-            ayahText = sentences.map((sentence) => sentence + "۝").join("");
+            ayahText = sentences.map((sentence, index) => {
+              return index < sentences.length - 1 ? sentence + "۝" : sentence;
+          }).join("");
             const arabicNumber = convertToArabicNumber(ayahCounter);
-            ayahText += `<span style="font-weight: bold;"> ${arabicNumber}</span>`;
+            if (ayahText.endsWith("۝")) {
+              ayahText = ayahText.slice(0, -1) +`۝<span style="font-weight: bold;"> ${arabicNumber} </span>`;
+            } else {
+              ayahText += `<span style="font-weight: bold;"> ${arabicNumber} </span>`;
+            }
             ayahCounter++;
             p.innerHTML = ayahText;
             p.style.textAlign = "center";
@@ -324,13 +338,7 @@ function handleClickOutside(event) {
     }
     return ayahText;
   }
-  function convertToArabicNumber(number) {
-    const arabicNumerals = "٠١٢٣٤٥٦٧٨٩";
-    return String(number)
-      .split("")
-      .map((digit) => arabicNumerals[digit])
-      .join("");
-  }
+  
 
 
     let audioPlayer = new Audio();
