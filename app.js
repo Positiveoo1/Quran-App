@@ -134,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
       sidebar.style.width = isSidebarOpen ? "250px" : "0px";
       quranContent.style.filter = isSidebarOpen ? 'blur(2px)' : 'none';
-      this.classList.remove('sidebar')
     }
 
 
@@ -145,24 +144,34 @@ function handleClickOutside(event) {
   if (isSidebarOpen && !sidebar.contains(event.target) && event.target !== openSidebarBtn) {
     toggleSidebar();
   }
+
+  
 }
+const surahs1 = document.getElementById("surah-list");
+
+surahs1.addEventListener("click", () => {
+  toggleSidebar();
+})
+surahs.forEach((surah) => {
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.href = "#";
+  a.textContent = surah.name;
+  a.dataset.surah = surah.number;
+  a.addEventListener("click", (event) => {
+    event.preventDefault();
+    loadSurah(surah.number);
+    sidebar.style.width = "0";
+  });
+
+  li.appendChild(a);
+  surahList.appendChild(li);
+
+});
 
   
 
-    surahs.forEach((surah) => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = "#";
-      a.textContent = surah.name;
-      a.dataset.surah = surah.number;
-      a.addEventListener("click", (event) => {
-        event.preventDefault();
-        loadSurah(surah.number);
-        sidebar.style.width = "0";  
-      });
-      li.appendChild(a);
-      surahList.appendChild(li);
-    });
+  
   
     function displaySurahs(filteredSurahs) {
         surahList.innerHTML = ""; 
@@ -292,6 +301,7 @@ function handleClickOutside(event) {
             p.classList.add("under");
     
             quranContent.appendChild(p);
+            
             const increase = document.getElementById("increase-font-btn");
             const decrease = document.getElementById("decrease-font-btn");
             increase.addEventListener("click", () => {
@@ -307,13 +317,37 @@ function handleClickOutside(event) {
       
 
       }
+      
+const faGear = document.querySelector(".fa-gear");
+const modulSettings = document.getElementById("modul-settings");
+const onn = document.querySelector(".on");
+let isModulSettingsOpen = false; 
+
+faGear.addEventListener("click", () => {
+  isModulSettingsOpen = !isModulSettingsOpen; 
+
+  modulSettings.style.right = isModulSettingsOpen ? "0" : "-100%";
+  
+  quranContent.style.filter = isModulSettingsOpen ? "blur(2px)" : "none";
+  onn.style.display = isModulSettingsOpen ? "block" : "none";
+  onn.style.zIndex = '9999';
+});
+document.addEventListener("click", handleOut);
+function handleOut(e) {
+  if(isModulSettingsOpen && !modulSettings.contains(e.target) && e.target !== openModulSettingsBtn) {
+    isModulSettingsOpen = false;
+    modulSettings.style.right = "-100%";
+    quranContent.style.filter = "none";
+    onn.style.display = "none";
+}
+}
+
   
       const round = document.getElementById("round11");
       
      
       if (round) {
         round.addEventListener("click", (event) => {
-          event.stopPropagation();
     
           document.body.classList.toggle("dark");
     
@@ -432,7 +466,8 @@ function handleClickOutside(event) {
   const playButton = document.getElementById("play");
   playButton.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
 }
-    
+
+
   });
   
   window.onscroll = function () {
@@ -456,3 +491,5 @@ function handleClickOutside(event) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   
+
+//AIzaSyAf1G5hmx5GGZSL6Lsnv99ycKogl3VcCIQ
