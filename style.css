@@ -154,7 +154,7 @@ button:hover {
 #modul-settings {
  min-width: 250px;
  position: fixed;
- top: 70px;
+ top: 60px;
  right: -100%; 
  min-height: 100vh;
  z-index: 1;
@@ -168,7 +168,7 @@ button:hover {
     width: 50px;
     height: 30px;
     border: 1px solid #333;
-    background-color: #333;
+    background-color: #585353;
     border-radius: 30px;
     position: absolute;
     top: 20px;
@@ -176,6 +176,15 @@ button:hover {
 }
 
 
+#tafseerSee {
+    padding: 7px 12px;
+    border-radius: 7px;
+    background-color: #4CAF50;
+    color: #fff;
+    position: absolute;
+    right: 0px;
+    top: 15px;
+}
 #round11 {
     width: 25px;
     height: 25px;

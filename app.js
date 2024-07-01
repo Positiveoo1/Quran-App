@@ -170,9 +170,6 @@ surahs.forEach((surah) => {
 });
 
   
-
-  
-  
     function displaySurahs(filteredSurahs) {
         surahList.innerHTML = ""; 
         filteredSurahs.forEach((surah) => {
@@ -317,6 +314,37 @@ surahs.forEach((surah) => {
       
 
       }
+
+
+ 
+      async function fetchTafseer(surahNumber) {
+        try {
+          const response = await fetch(`https://api.alquran.cloud/v1/tafsir/${surahNumber}`);
+          const data = await response.json();
+          displayTafseer(data.data);
+        } catch (error) {
+          console.error("Error fetching Tafseer:", error);
+          const tafsirContent = document.getElementById("tafsir-content");
+          tafsirContent.textContent = "An error occurred while fetching the Tafseer content.";
+        }
+      }
+    
+      function displayTafseer(tafsir) {
+        const tafsirContent = document.getElementById("tafsir-content");
+        tafsirContent.innerHTML = "";
+        tafsir.forEach((ayahTafsir) => {
+          const p = document.createElement("p");
+          p.textContent = `${ayahTafsir.numberInSurah}: ${ayahTafsir.text}`;
+          tafsirContent.appendChild(p);
+        });
+      }
+    
+      const tafseerSee = document.getElementById("tafseerSee");
+      tafseerSee.addEventListener('click', () => {
+        fetchTafseer(surahs[currentSurahIndex].number);
+      });
+    
+
       
 const faGear = document.querySelector(".fa-gear");
 const modulSettings = document.getElementById("modul-settings");
