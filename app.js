@@ -170,6 +170,19 @@ surahs.forEach((surah) => {
 });
 
   
+
+function checkNetworkStatus() {
+  if(!navigator.onLine) {
+    alert("No network connection!")
+  }
+}
+window.addEventListener("load", checkNetworkStatus);
+window.addEventListener('offline', () => {
+  alert("No network Connection!")
+})
+window.addEventListener('online', () => {
+  alert("Network Connection restored!")
+})
     function displaySurahs(filteredSurahs) {
         surahList.innerHTML = ""; 
         filteredSurahs.forEach((surah) => {
@@ -316,33 +329,58 @@ surahs.forEach((surah) => {
       }
 
 
- 
       async function fetchTafseer(surahNumber) {
         try {
-          const response = await fetch(`https://api.alquran.cloud/v1/tafsir/${surahNumber}`);
-          const data = await response.json();
-          displayTafseer(data.data);
-        } catch (error) {
-          console.error("Error fetching Tafseer:", error);
-          const tafsirContent = document.getElementById("tafsir-content");
-          tafsirContent.textContent = "An error occurred while fetching the Tafseer content.";
-        }
-      }
+            const response = await fetch(`https://al-quran1.p.rapidapi.com/${surahNumber}`, {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Host': 'al-quran1.p.rapidapi.com',
+                    'X-RapidAPI-Key': '42c014b281msh8e903bf51ff69cap17f9d2jsne2fbb88f52be' // Replace with your actual API key
+                }
+            });
     
-      function displayTafseer(tafsir) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            displayTafseer(data.data);
+        } catch (error) {
+            console.error("Error fetching Tafseer:", error);
+            const tafsirContent = document.getElementById("tafsir-content");
+            if (tafsirContent) {
+                tafsirContent.textContent = "An error occurred while fetching the Tafseer content.";
+            } else {
+                console.error("Element with id 'tafsir-content' not found in the DOM.");
+            }
+        }
+    }
+    
+    function displayTafseer(tafsir) {
         const tafsirContent = document.getElementById("tafsir-content");
+        if (!tafsirContent) {
+            console.error("Element with id 'tafsir-content' not found in the DOM.");
+            return;
+        }
         tafsirContent.innerHTML = "";
         tafsir.forEach((ayahTafsir) => {
-          const p = document.createElement("p");
-          p.textContent = `${ayahTafsir.numberInSurah}: ${ayahTafsir.text}`;
-          tafsirContent.appendChild(p);
+            const p = document.createElement("p");
+            p.textContent = `${ayahTafsir.numberInSurah}: ${ayahTafsir.text}`;
+            tafsirContent.appendChild(p);
         });
-      }
+    }
     
-      const tafseerSee = document.getElementById("tafseerSee");
-      tafseerSee.addEventListener('click', () => {
-        fetchTafseer(surahs[currentSurahIndex].number);
-      });
+    document.addEventListener("DOMContentLoaded", () => {
+        const tafseerSee = document.getElementById("tafseerSee");
+        if (tafseerSee) {
+            tafseerSee.addEventListener('click', () => {
+                fetchTafseer(surahs[currentSurahIndex].number);
+            });
+        } else {
+            console.error("Element with id 'tafseerSee' not found in the DOM.");
+        }
+    });
+    
     
 
       
