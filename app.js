@@ -183,24 +183,25 @@ window.addEventListener('offline', () => {
 window.addEventListener('online', () => {
   alert("Network Connection restored!")
 })
-    function displaySurahs(filteredSurahs) {
-        surahList.innerHTML = ""; 
-        filteredSurahs.forEach((surah) => {
-          const li = document.createElement("li");
-          const a = document.createElement("a");
-          a.href = "#";
-          a.textContent = surah.name;
-          a.dataset.surah = surah.number;
-          a.addEventListener("click", (event) => {
-            event.preventDefault();
-            loadSurah(surah.number);
-            sidebar.style.width = "0";  
-          });
-          li.appendChild(a);
-          surahList.appendChild(li);
-        });
-      }
-    
+function displaySurahs(filteredSurahs) {
+  surahList.innerHTML = ""; // Clear previous list items
+  filteredSurahs.forEach((surah) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#";
+    // Create a string to display both the Surah number and name
+    a.textContent = `${surah.number}. ${surah.name}`;
+    a.dataset.surah = surah.number;
+    a.addEventListener("click", (event) => {
+      event.preventDefault();
+      loadSurah(surah.number);
+      sidebar.style.width = "0";  
+    });
+    li.appendChild(a);
+    surahList.appendChild(li);
+  });
+}
+
       displaySurahs(surahs);
     
       searchInput.addEventListener("input", () => {
@@ -309,6 +310,7 @@ window.addEventListener('online', () => {
             p.style.textAlign = "center";
             p.style.fontSize = "25px";
             p.classList.add("under");
+            p.style.marginBottom = "20px";
     
             quranContent.appendChild(p);
             
@@ -556,6 +558,77 @@ function handleOut(e) {
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+  // Get the theme toggle button
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+// Check the system's theme preference
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+// Set initial theme based on system preference
+if (prefersDarkScheme) {
+    document.body.classList.add('dark');
+} else {
+    document.body.classList.remove('dark');
+}
+
+// Toggle dark/light theme on button click
+themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+});
+
+// Save the theme preference in localStorage (optional)
+themeToggleBtn.addEventListener('click', () => {
+    if (document.body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+});
+// Function to set a cookie
+// Function to set a cookie
+function setCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000)); // Set expiration date
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/"; // Set cookie with expiration and path
+}
+
+// Function to get a cookie by name
+function getCookie(name) {
+  const nameEq = name + "=";
+  const ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(nameEq) == 0) {
+      return c.substring(nameEq.length, c.length); // Return the value of the cookie
+    }
+  }
+  return ""; // Return empty string if cookie is not found
+}
+
+// Function to accept cookies and hide the banner
+function acceptCookies() {
+  setCookie('cookie-consent', 'accepted', 365); // Set cookie for 365 days
+  document.getElementById('cookie-banner').style.display = 'none'; // Hide the banner
+}
+
+// Check if the user already accepted cookies
+if (getCookie('cookie-consent') === 'accepted') {
+  document.getElementById('cookie-banner').style.display = 'none'; // Hide the banner if consent is given
+} else {
+  // Show the banner with animation
+  document.getElementById('cookie-banner').classList.add('show');
+}
+
+
+
+
+// Apply the saved theme preference when the page loads
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.body.classList.toggle('dark', savedTheme === 'dark');
+}
+
   
 
 //AIzaSyAf1G5hmx5GGZSL6Lsnv99ycKogl3VcCIQ

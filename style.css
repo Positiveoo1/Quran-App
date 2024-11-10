@@ -6,19 +6,15 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f9f9f9;
     color: #333;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
-#quran-content {
-    margin-top: 50px;
-}
 body::-webkit-scrollbar {
     width: 10px;
 }
+
 body::-webkit-scrollbar-track {
     background-color: #f5f5f5;
     border-radius: 5px;
@@ -29,8 +25,7 @@ body::-webkit-scrollbar-thumb {
     background-color: #45a049;
     border-radius: 5px;
     background-image: linear-gradient(to top, #45a049, #bbb);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2); 
-
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 header {
@@ -59,9 +54,7 @@ button:hover {
     background-color: #45a049;
 }
 
-
-
-
+/* Sidebar */
 .sidebar {
     height: 100%;
     width: 0;
@@ -72,40 +65,9 @@ button:hover {
     background-color: rgb(201, 201, 201);
     overflow-x: hidden;
     transition: 0.2s;
-    padding-top: 60px;
-    box-shadow: 2px 7px 18px rgba(0, 0, 0, 0.2);
     padding-top: 100px;
+    box-shadow: 2px 7px 18px rgba(0, 0, 0, 0.2);
 }
-/* #search-input {
-    padding: 7px 11px;
-    margin-left: 20px;
-    border: none;
-    outline: none;
-    border-radius: 11px;
-} */
-
-.search-container {
-    position: relative;
-    width: 100%;
-    margin: 10px 0;
-  }
-  
-  #search-input {
-    width: calc(100% - 40px);
-    padding: 10px 35px 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-  }
-  
-  .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    color: #888;
-  }
-
 
 .sidebar ul {
     list-style: none;
@@ -121,6 +83,7 @@ button:hover {
     border-radius: 11px;
     text-align: center;
 }
+
 .sidebar ul li a {
     padding: 10px 15px;
     text-decoration: none;
@@ -128,21 +91,13 @@ button:hover {
     display: block;
     transition: 0.3s;
     color: #000;
-
 }
 
 .sidebar ul li a:hover {
     background-color: #a8a4a4;
 }
 
-
-
-
-    
-
-/* .removedBlur {
-    filter: none !important;
-} */
+/* Settings */
 .settings {
     position: fixed;
     right: 20px;
@@ -151,30 +106,18 @@ button:hover {
     font-size: 25px;
     z-index: 9999;
 }
+
 #modul-settings {
- min-width: 250px;
- position: fixed;
- top: 60px;
- right: -100%; 
- min-height: 100vh;
- z-index: 1;
- background-color: #bbb;
- transition: right 0.5s ease-out;
-
+    min-width: 250px;
+    position: fixed;
+    top: 60px;
+    right: -100%; 
+    min-height: 100vh;
+    z-index: 1;
+    background-color: #bbb;
+    transition: right 0.5s ease-out;
+    padding: 20px;
 }
-.on {
-    display: none;
-
-    width: 50px;
-    height: 30px;
-    border: 1px solid #333;
-    background-color: #585353;
-    border-radius: 30px;
-    position: absolute;
-    top: 20px;
-    left: 10px;
-}
-
 
 #tafseerSee {
     padding: 7px 12px;
@@ -185,23 +128,62 @@ button:hover {
     right: 0px;
     top: 15px;
 }
-#round11 {
-    width: 25px;
-    height: 25px;
-    border: 1px solid #fff;
-    background-color: #fff;
+
+.theme-toggle-btn {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin-top: 1px;
+    padding: 10px;
     cursor: pointer;
-    z-index: 9999;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
 }
-.dark {
+
+.theme-toggle-btn:hover {
+    background-color: #45a049;
+}
+
+.theme-toggle-btn:before {
+    content: '\f186'; /* Light mode icon */
+    font-family: 'FontAwesome';
+}
+
+body.dark .theme-toggle-btn:before {
+    content: '\f185'; /* Dark mode icon */
+}
+
+/* Dark Mode */
+body.dark {
     background-color: #222;
     color: #fff;
 }
 
+.sidebar.dark {
+    background-color: #333;
+}
+
+button.dark {
+    background-color: #555;
+    color: #fff;
+}
+
+header.dark {
+    background-color: #333;
+}
+
+footer.dark {
+    background-color: #333;
+}
+
+/* Main Content */
 main {
-    padding: 20px;
+    padding: 90px;
 }
 
 .loader {
@@ -212,41 +194,10 @@ main {
     transform: translate(-50%, -50%);
 }
 
-.under {
-    position: relative;
-    padding: 15px;
-}
-
-.under::after {
-    content: "";
-    position: absolute;
-    left: 0px;
-    right: 0;
-    width: auto;
-    bottom: -2px; 
-    height: 2px; 
-    background-color: currentColor; 
-}
-.fa-bars {
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    transition: background-color 0.3s ease;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    position: absolute;
-    top: 10px;
-    left: 2px;
-}
-.fa-bars:hover {
-    background-color: #45a049;
-    border-radius: 50%;
-}
+/* Footer */
 
 
-/* Scroll to Top */
+/* Scroll to Top Button */
 #scroll1 {
     display: none;
     position: fixed;
@@ -264,52 +215,12 @@ main {
     font-size: 20px;
 }
 
-
-.sidebar::-webkit-scrollbar {
-    width: 10px;
-
-}
-.sidebar::-webkit-scrollbar-thumb {
-    background-color: #45a049;
-    border-radius: 5px;
-    background-image: linear-gradient(to top, #45a049, #bbb);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2); 
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-}
-#font-size-controls {
-    transition: transform 0.5s ease; 
-
-  }
 #scroll1:hover {
     background-color: #45a049;
 }
 
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.highlighted {
-    background-color: yellow;
-    color: black; 
-}
+/* Responsive Design */
 @media (max-width: 600px) {
-    .open-btn,
-    .close-btn {
-        font-size: 18px;
-        padding: 8px 10px;
-    }
-
     .sidebar ul li a {
         font-size: 18px;
     }
@@ -322,9 +233,7 @@ footer {
         left: 15px;
         top: -15px;
     }
-    #hidee {
-        top: 240px;
-    }
+
     h1 {
         font-size: 20px;
     }
@@ -332,6 +241,74 @@ footer {
     #quran-content {
         padding-bottom: 50px;
     }
-    
-  
 }
+
+/* Make the content area fill the remaining space */
+.main-content {
+    min-height: calc(100vh - 50px); /* Adjust this based on footer height */
+    padding-bottom: 50px; /* This will ensure there is space for the footer */
+    overflow-y: auto; /* Allow scrolling when content exceeds viewport */
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: green; /* Your footer color */
+    color: white;
+    text-align: center;
+}
+
+/* Fix Sidebar icon position */
+.fa-bars {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 20px; /* Ensure it's on the left side */
+}
+
+/* Fix the position of the dark/light mode toggle in #modul-settings */
+#modul-settings .theme-toggle-btn {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Dark mode toggle inside #modul-settings */
+body.dark #modul-settings .theme-toggle-btn {
+    background-color: #555;
+    color: #fff;
+}
+
+#cookie-banner {
+  position: fixed;
+  bottom: -100px; /* Start off the screen */
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  transition: bottom 0.5s ease-in-out; /* Smooth transition */
+}
+
+#cookie-banner.show {
+  bottom: 0; /* Move to the bottom of the page */
+}
+
+

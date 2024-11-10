@@ -22,13 +22,15 @@
         <i class="fas fa-bars"></i>
         <div class="settings">
           <i class="fa-solid fa-gear"></i>
+
         </div>
     </header>
+    
     <div id="modul-settings">
-      <div class="on">
-        <div id="round11"></div>
-      </div>
+      <button class="theme-toggle-btn" id="theme-toggle-btn"></button>
+
       <button id="tafseerSee">Tafseer</button>
+
     </div>
 
     <nav id="sidebar" class="sidebar">
@@ -47,12 +49,18 @@
       <div id="quran-content">
       </div>
       <div id="tafsir-content"></div>
-
+      <div id="cookie-banner" style="position: fixed; bottom: 50px; left: 0; right: 0; background-color: #333; color: white; padding: 10px; text-align: center;">
+        We use cookies to improve your experience. By continuing to browse the site, you agree to our use of cookies.
+        <button onclick="acceptCookies()">Accept</button>
+      </div>
     </main>
 
     <button id="scroll1" onclick="scrollToTop()">
       <i class="fas fa-arrow-up"></i>
     </button>
+    <!-- Cookie Consent Banner -->
+
+
 
     <footer>
         <button id="previous" title="Previous">
