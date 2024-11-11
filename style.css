@@ -182,7 +182,7 @@ footer.dark {
 }
 
 main {
-    width: 800px;
+    min-width: 800px;
     min-height: 100vh;
     border: 20px solid rgb(12, 113, 228);
     position: absolute;
@@ -201,6 +201,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 /* Footer */
 
@@ -324,6 +325,7 @@ body.dark #modul-settings .theme-toggle-btn {
 
 
 
+
   .ayah-text {
     text-align: right;
     direction: rtl;
@@ -339,3 +341,5 @@ body.dark #modul-settings .theme-toggle-btn {
  margin-left: 5px;
  border-radius: 11px;
 }
+.highlighted { background-color: yellow; }
+.ayahText { text-align: right; font-size: 25px; margin-bottom: 20px; direction: rtl; }

@@ -262,8 +262,26 @@ function displaySurahs(filteredSurahs) {
         document.getElementById("loader").style.display = "none";
       }
     }
+    let fontSize = 25
     const increase = document.getElementById("increase-font-btn");
     const decrease = document.getElementById("decrease-font-btn");
+    increase.addEventListener("click", () => {
+      fontSize += 2; // Increase font size by 2px
+      updateAyahFontSize();
+    });
+    
+    decrease.addEventListener("click", () => {
+      fontSize -= 2; // Decrease font size by 2px
+      if (fontSize < 10) fontSize = 10; // Set minimum font size
+      updateAyahFontSize();
+    });
+    
+    function updateAyahFontSize() {
+      const ayahElements = quranContent.getElementsByClassName("ayah-text");
+      Array.from(ayahElements).forEach((ayah) => {
+        ayah.style.fontSize = `${fontSize}px`;
+      });
+    }
     function displaySurah(surah) {
       quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
       let ayahCounter = 1;
@@ -425,26 +443,9 @@ function handleOut(e) {
 }
 
   
-      const round = document.getElementById("round11");
       
      
-      if (round) {
-        round.addEventListener("click", (event) => {
-    
-          document.body.classList.toggle("dark");
-    
-          if (document.body.classList.contains("dark")) {
-            round.style.transform = "translateX(20px)";
-            round.style.transition = "transform 0.5s ease-in-out";
-            round.style.backgroundColor = "#777";
-          } else {
-            round.style.transform = "translateX(0px)";
-            round.style.backgroundColor = "white";
-          }
-        });
-      } else {
-        console.error('Element with class "round" not found');
-      }
+     
       
     
   function removeBasmalah(ayahText) {
@@ -494,19 +495,30 @@ function handleOut(e) {
         updatePlayIcon();
       }
     }
+    // function togglePlay() {
+    //     const playButton = document.getElementById("play");
+      
+    //     if (isPlaying) {
+    //       playButton.innerHTML = '<i class="fas fa-play"></i>'; 
+    //       pauseAudio();
+    //     } else {
+    //       playButton.innerHTML = '<i class="fas fa-pause"></i>'; 
+    //       playAyah(currentIndex);
+    //     }
+    //     isPlaying = !isPlaying;
+    //   }
+      
     function togglePlay() {
-        const playButton = document.getElementById("play");
-      
-        if (isPlaying) {
-          playButton.innerHTML = '<i class="fas fa-play"></i>'; 
-          pauseAudio();
-        } else {
-          playButton.innerHTML = '<i class="fas fa-pause"></i>'; 
-          playAyah(currentIndex);
-        }
-        isPlaying = !isPlaying;
+      if (!isPlaying) {
+        playAyah(currentIndex);
+        document.getElementById("play").innerHTML = '<i class="fas fa-pause"></i>';
+      } else {
+        pauseAudio();
+        document.getElementById("play").innerHTML = '<i class="fas fa-play"></i>';
       }
-      
+      isPlaying = !isPlaying;
+    }
+    
     function playAyah(index) {
       if (index < ayahs.length) {
         audioPlayer.src = ayahs[index].audio;
