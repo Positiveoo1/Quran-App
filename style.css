@@ -181,9 +181,17 @@ footer.dark {
     background-color: #333;
 }
 
-/* Main Content */
 main {
+    width: 800px;
+    min-height: 100vh;
+    border: 20px solid rgb(12, 113, 228);
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate( -50%);
     padding: 90px;
+    display: inline;
+    direction: rtl;
 }
 
 .loader {
@@ -240,6 +248,9 @@ main {
 
     #quran-content {
         padding-bottom: 50px;
+    }
+    main {
+        width: 300px;
     }
 }
 
@@ -312,3 +323,19 @@ body.dark #modul-settings .theme-toggle-btn {
 }
 
 
+
+  .ayah-text {
+    text-align: right;
+    direction: rtl;
+    font-size: 25px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+#search-input {
+ padding: 8px 12px;
+ margin-left: 5px;
+ border-radius: 11px;
+}

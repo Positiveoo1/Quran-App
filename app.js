@@ -264,71 +264,85 @@ function displaySurahs(filteredSurahs) {
     }
     const increase = document.getElementById("increase-font-btn");
     const decrease = document.getElementById("decrease-font-btn");
-  
     function displaySurah(surah) {
-        quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
-        let ayahCounter = 1;
-        surah.ayahs.forEach((ayah, index) => {
+      quranContent.innerHTML = `<mark>${surah.englishName} (${surah.englishNameTranslation})</mark>`;
+      let ayahCounter = 1;
+      surah.ayahs.forEach((ayah) => {
           let ayahText = ayah.text;
+          
+          // Handling for Basmalah (optional)
           if (surah.number >= 2 && surah.number <= 114) {
-            ayahText = removeBasmalah(ayahText);
-          }
-          if (ayahText.includes("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ")) {
-            const parts = ayahText.split("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ");
-            const bismillah = `<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>`;
-            const bismillahParagraph = document.createElement("p");
-            bismillahParagraph.innerHTML = bismillah;
-            bismillahParagraph.style.textAlign = "center";
-            bismillahParagraph.style.fontSize = "22px";
-            bismillahParagraph.classList.add("under");
-            quranContent.appendChild(bismillahParagraph);
-            ayahText = parts.length > 1 ? parts[1] : "";
-          }
-        
-          function convertToArabicNumber(number) {
-    const arabicNumerals = "٠١٢٣٤٥٦٧٨٩";
-    return String(number)
-      .split("")
-      .map((digit) => arabicNumerals[digit])
-      .join("");
-  }
-    
-          if (ayahText.trim() !== "") {
-            const p = document.createElement("p");
-            const sentences = ayahText.split(".");
-            ayahText = sentences.map((sentence, index) => {
-              return index < sentences.length - 1 ? sentence + "۝" : sentence;
-          }).join("");
-            const arabicNumber = convertToArabicNumber(ayahCounter);
-            if (ayahText.endsWith("۝")) {
-              ayahText = ayahText.slice(0, -1) +`۝<span style="font-weight: bold;"> ${arabicNumber} </span>`;
-            } else {
-              ayahText += `<span style="font-weight: bold;"> ${arabicNumber} </span>`;
-            }
-            ayahCounter++;
-            p.innerHTML = ayahText;
-            p.style.textAlign = "center";
-            p.style.fontSize = "25px";
-            p.classList.add("under");
-            p.style.marginBottom = "20px";
-    
-            quranContent.appendChild(p);
-            
-            const increase = document.getElementById("increase-font-btn");
-            const decrease = document.getElementById("decrease-font-btn");
-            increase.addEventListener("click", () => {
-              p.style.fontSize = `${parseInt(p.style.fontSize) + 2}px`;
-            });
-            decrease.addEventListener("click", () => {
-              p.style.fontSize = `${parseInt(p.style.fontSize) - 2}px`;
-            });
+              ayahText = removeBasmalah(ayahText);
           }
           
-        });
-
-      
-
-      }
+          // Handling for "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ" text
+          if (ayahText.includes("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ")) {
+              const parts = ayahText.split("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ");
+              const bismillah = `<span style="color: red;">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</span>`;
+              const bismillahParagraph = document.createElement("p");
+              bismillahParagraph.innerHTML = bismillah;
+              bismillahParagraph.style.textAlign = "center";
+              bismillahParagraph.style.fontSize = "22px";
+              bismillahParagraph.classList.add("under");
+              quranContent.appendChild(bismillahParagraph);
+              ayahText = parts.length > 1 ? parts[1] : "";
+          }
+  
+          // Function to convert numbers to Arabic numerals
+          function convertToArabicNumber(number) {
+              const arabicNumerals = "٠١٢٣٤٥٦٧٨٩";
+              return String(number)
+                  .split("")
+                  .map((digit) => arabicNumerals[digit])
+                  .join("");
+          }
+  
+          if (ayahText.trim() !== "") {
+              const p = document.createElement("p");
+              const sentences = ayahText.split(".");
+  
+              // Join sentences and add symbol at the end of each sentence except the last
+              ayahText = sentences.map((sentence, index) => {
+                  return index < sentences.length - 1 ? sentence + "۝" : sentence;
+              }).join("");
+  
+              const arabicNumber = convertToArabicNumber(ayahCounter);
+              
+              // Add symbol (۝) and number at the end of the last sentence
+              if (ayahText.endsWith("۝")) {
+                // If the text ends with the symbol, replace it with the Arabic number, keeping the symbol's position
+                ayahText = ayahText.slice(0, -1) + `<span style="font-weight: bold; white-space: nowrap; position: relative;">
+                  <span style="position: absolute; left: 7px; top: 0; font-size: 27px;">۝</span>
+                  <span style="padding-left: 35px; font-size: 17px">${arabicNumber}</span>
+                </span>`;
+            } else {
+                // Otherwise, add the symbol and Arabic number normally
+                ayahText += `<span style="font-weight: bold; white-space: nowrap; position: relative;">
+                  <span style="position: absolute; left: 0px;  top: 0; font-size: 27px;">۝</span>
+                  <p style="padding-left: 15px; font-size: 17px padding-top: 20px;">${arabicNumber}</p>
+                </span>`;
+            }
+            
+  
+              ayahCounter++;
+              p.innerHTML = ayahText;
+  
+              // Styling for Arabic text display
+              p.style.textAlign = "right";
+              p.style.direction = "rtl";
+              p.style.fontSize = "25px";
+              p.style.marginBottom = "20px";
+              p.style.display = 'inline-flex';
+              p.style.unicodeBidi = 'isolate';
+              p.style.whiteSpace= "pre-wrap"
+              p.classList.add("under");
+              p.classList.add("ayah-text");
+  
+              quranContent.appendChild(p);
+          }
+      });
+  }
+  
 
 
       async function fetchTafseer(surahNumber) {
