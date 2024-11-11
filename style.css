@@ -155,7 +155,7 @@ button:hover {
 }
 
 body.dark .theme-toggle-btn:before {
-    content: '\f185'; /* Dark mode icon */
+    content: '\f0eb'; /* Dark mode icon */
 }
 
 /* Dark Mode */
