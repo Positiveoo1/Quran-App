@@ -182,7 +182,7 @@ footer.dark {
 }
 
 main {
-    min-width: 800px;
+    width: 800px;
     min-height: 100vh;
     border: 20px solid rgb(12, 113, 228);
     position: absolute;
